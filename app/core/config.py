@@ -4,19 +4,19 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     app_title: str = 'Получение рандомного вопроса'
     secret: str = 'SECRET'
-    POSTGRES_DB: str
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    DB_HOST: str
-    DB_PORT: str
-
+    postgres_db: str
+    postgres_user: str
+    postgres_password: str
+    db_host: str
+    db_port: str
+    url = 'https://jservice.io/api/random'
     @property
     def database_url(self) -> str:
         """Получить ссылку для подключения к DB."""
         return (
             "postgresql://"
-            f"{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
-            f"@{self.DB_HOST}:{self.DB_PORT}/{self.POSTGRES_DB}"
+            f"{self.postgres_user}:{self.postgres_password}"
+            f"@{self.db_host}:{self.db_port}/{self.postgres_db}"
         )
 
     class Config:

@@ -8,17 +8,17 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - postgres
+      - db
     env_file:
       - .env
 
-  postgres:
+  db:
     image: postgres:13.2
     container_name: bewise
     restart: always
     command: -p 4500
-    expose:
-      - 4500
+    ports:
+      - 4500:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:

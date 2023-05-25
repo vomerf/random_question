@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Text, Integer, DATE, JSON
+from datetime import datetime
 
+from sqlalchemy import Column, DateTime, Integer, Text
 from sqlalchemy.orm import declarative_base, declared_attr
 
 
@@ -18,6 +19,7 @@ class RandomQuestion(Base):
     __tablename__ = 'random_question'
 
     id_question = Column(Integer(), unique=True, nullable=False)
-    answer = Column(Text, nullable=False)
-    question = Column(Text, nullable=False)
-    airdate = Column(DATE, nullable=False)
+    answer = Column(Text)
+    question = Column(Text)
+    airdate = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
