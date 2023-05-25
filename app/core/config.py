@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     db_host: str
     db_port: str
     url = 'https://jservice.io/api/random'
+
     @property
     def database_url(self) -> str:
         """Получить ссылку для подключения к DB."""
