@@ -3,6 +3,7 @@ from typing import Union
 
 import requests
 from fastapi import APIRouter, Depends
+from requests.exceptions import RequestException
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -21,7 +22,10 @@ def get_random_question(
     url = settings.url
     query = session.query(
         RandomQuestion).order_by(RandomQuestion.created_at.desc()).first()
-    response = requests.get(url, params={'count': count.question_num})
+    try:
+        response = requests.get(url, params={'count': count.question_num})
+    except RequestException:
+        raise RequestException('Ошибка при выполнении запроса')
     all_random_question = json.loads(response.text)
     add_all_random_questions = []
     all_random_question_copy = all_random_question.copy()
